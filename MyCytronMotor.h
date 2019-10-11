@@ -26,6 +26,7 @@ class MyCytronMotor {
     MyCytronMotor(int _val, double _radius, double _tread);
 
     void calc_speed(int rightcnt, int leftcnt, int speed);
+    boolean is_matched();
     void brake();
 
     int forward(int rightcnt, int leftcnt, int speed, double dist);
