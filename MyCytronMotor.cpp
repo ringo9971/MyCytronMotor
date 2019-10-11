@@ -6,18 +6,18 @@
 CytronMD right_motor(PWM_PWM, 6, 7);
 CytronMD left_motor(PWM_PWM, 8, 9);
 
-MyCytronMotor::MyCytronMotor(int _val, double _radius, double _tread){
+MyCytronMotor::MyCytronMotor(double _radius, double _tread, int _cnt_par_round){
   radius = _radius;
   tread  = _tread;
-  val    = _val;
+  cnt_par_round = _cnt_par_round;
+
   sum    = 0;
   pastgap = 0;
-
   rightsum = 0;
   leftsum = 0;
+
   pastrightspeed = 0;
   pastleftspeed = 0;
-
   past_right_target_cnt = 0;
   past_left_target_cnt = 0;
 
@@ -27,8 +27,6 @@ MyCytronMotor::MyCytronMotor(int _val, double _radius, double _tread){
 
   sumpgain = 1.5;
   sumigain = 0.000;
-
-  cnt_par_round = 918;
 
   timer = millis();
   flag = false;
@@ -61,6 +59,7 @@ boolean is_matched(int rightcnt, int leftcnt){
     if(timer-millis() >= 500){
       past_right_target_cnt = right_target_cnt;
       past_left_target_cnt = left_target_cnt;
+      brake();
       is_first_time = true;
       return true;
     }
